@@ -1,0 +1,32 @@
+/* Header Styles */
+.header {
+    background-image: url('/media/360_F_982176396_1FLezopufRRrlLNSLA53Y1CKDrEj5Fl4.jpg');
+    height: 95vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.text-color{
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
+
+}
+
+/* pagina contatti */
+
+.box{
+    border: dotted 2px white;
+    min-height: 250px;
+    max-width: 250px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.box:hover {
+    border:  3px solid white;
+    transform: translate(-10px);
+}
+
+.icon{
+    font-size: 50px;
+}
