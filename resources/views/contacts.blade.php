@@ -19,9 +19,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    <a class="nav-link" href="/chi-siamo">Chi siamo</a>
-                    <a class="nav-link" href="/contatti">Contatti</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}">Home</a>
+                    <a class="nav-link" href="{{ route('aboutUs') }}">Chi siamo</a>
+                    <a class="nav-link" href="{{ route('contacts') }}">Contatti</a>
+                    <a class="nav-link" href="{{ route('products') }}">Prodotti</a>
                 </div>
             </div>
         </div>

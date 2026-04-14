@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chi siamo</title>
+    <title>Olio D'oliva</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -30,40 +30,21 @@
         </div>
     </nav>
     <header>
-
-        <div class="container-fluid header">
-            <div class="row h-100 justify-content-around align-items-center">
-                <div class="col-6">
-                    <h2 class="text-white text-color text-center">Chi siamo</h2>
-                    <p class="text-white text-color">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure at
-                        quod fugiat voluptas, voluptate aperiam ad placeat impedit consectetur ratione vitae autem
-                        corrupti qui amet sed asperiores vero consequuntur. Ipsam!</p>
+        <div class="container-fluid products">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="row">
+                    <h2 class="display-5 text-white text-center text-color">{{ $product['name'] }}</h2>
                 </div>
-                <div class="col-6">
-                    <img src="/media/team.jpg" alt="foto del team" class="shadow rounded">
+                <div class="col-12 col-md-6 text-white d-flex flex-column justify-content-center align-items-center">
+                    <h2>{{ $product['name'] }}</h2>
+                    <h4>{{ $product['price'] }}</h4>
+                </div>
+                <div class="col-12 col-md-6 d-flex justify-content-center">
+                    <img src="{{ $product['img'] }}" class="card-img-top cardImg" alt="{{ $product['name'] }}">
                 </div>
             </div>
         </div>
     </header>
-
-    <section>
-        <div class="container userHeight">
-            <div class="row h-100 justify-content-around align-items-center">
-                @foreach ($users as $user)
-                    <div class="col-12 col-md-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="https://picsum.photos/200" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{$user['name']}} {{$user['surname']}}</h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">{{$user['role']}}</h6>
-                                <a href="{{ route('aboutUsDetail', ['name' => $user['name']]) }}" class="btn btn-primary">Scopri di più</a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
