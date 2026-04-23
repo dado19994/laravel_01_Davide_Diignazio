@@ -11,6 +11,7 @@
                     <a class="nav-link" href="{{ route('aboutUs') }}">Chi siamo</a>
                     <a class="nav-link" href="{{ route('contacts') }}">Contatti</a>
                     <a class="nav-link" href="{{ route('products') }}">Prodotti</a>
+                    <a class="nav-link" href="{{ route('productCreate') }}">Inserisci Prodotto</a>
                 </div>
             </div>
         </div>
