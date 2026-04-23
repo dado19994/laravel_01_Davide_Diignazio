@@ -21,3 +21,9 @@ route::get('/prodotti/detail/{id}', [ProductController::class, 'productDetail'])
 
 // invio mail
 Route::post('/contact-us', [PublicController::class, 'contactUs'])->name('contactUs');
+
+
+// rotta inserimento prodotto
+
+route::get('/prodotti/create', [ProductController::class, 'create'])->name('productCreate');
+Route::post('/prodotti/store', [ProductController::class, 'store'])->name('productStore');

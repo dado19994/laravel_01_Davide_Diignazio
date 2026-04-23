@@ -12,6 +12,12 @@
                     {{ session('emailError') }}
                 </div>
             @endif
+            @if (session()->has('successMassage'))
+                <div class="alert alert-success">
+                    {{ session('successMassage') }}
+                </div>
+
+            @endif
             <div class="row h-100">
                 <div class="col-12 d-flex justify-content-center align-items-center">
                     <h1 class="text-light display-1 fw-bold text-color ">Olio D'oliva</h1>
