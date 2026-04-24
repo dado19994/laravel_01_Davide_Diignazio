@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -38,12 +39,13 @@ class ProductController extends Controller
         return view('prodotti.create');
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
             Product::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
+                'img' => $request->file('img')->store('public/images')
             ]);
 
             return redirect()->route('homepage')->with('success', 'Prodotto creato con successo!');
