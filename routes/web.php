@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
 
 route::get('/chi-siamo', [PublicController::class, 'aboutUs'])->name('aboutUs');
@@ -26,4 +27,4 @@ Route::post('/contact-us', [PublicController::class, 'contactUs'])->name('contac
 // rotta inserimento prodotto
 
 route::get('/prodotti/create', [ProductController::class, 'create'])->name('productCreate');
-Route::post('/prodotti/store', [ProductController::class, 'store'])->name('productStore');
+Route::post('/prodotti/store', [ProductController::class, 'store'])->name('products.store');
