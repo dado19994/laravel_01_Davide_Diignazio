@@ -26,5 +26,9 @@ Route::post('/contact-us', [PublicController::class, 'contactUs'])->name('contac
 
 // rotta inserimento prodotto
 
-route::get('/prodotti/create', [ProductController::class, 'create'])->name('productCreate');
-Route::post('/prodotti/store', [ProductController::class, 'store'])->name('products.store');
+route::get('/prodotti/create', [ProductController::class, 'create'])->name('productCreate')->middleware('auth');
+Route::post('/prodotti/store', [ProductController::class, 'store'])->name('products.store')->middleware('auth');
+
+
+
+

@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function _construct()
+    {
+        $this->middleware('auth')->only(['create', 'store']);
+    }
     // public  $products = [
     //     ['id' => 1, 'name' => 'Olio Extravergine di Oliva', 'img' => '/media/mediaolio/olio1.jpg', 'price' => '10€'],
     //     ['id' => 2, 'name' => 'Olio di Semi di Girasole', 'img' => '/media/mediaolio/olio2.jpg', 'price' => '5€'],

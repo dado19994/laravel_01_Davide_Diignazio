@@ -4,13 +4,13 @@
 
         <div class="container-fluid header">
             <div class="row h-100 justify-content-around align-items-center">
-                <div class="col-6">
+                <div class="col-6 col-md-4 d-flex flex-column justify-content-center align-items-center">
                     <h2 class="text-white text-color text-center">Chi siamo</h2>
                     <p class="text-white text-color">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure at
                         quod fugiat voluptas, voluptate aperiam ad placeat impedit consectetur ratione vitae autem
                         corrupti qui amet sed asperiores vero consequuntur. Ipsam!</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 col-md-4 d-flex justify-content-center align-items-center">
                     <img src="/media/team.jpg" alt="foto del team" class="shadow rounded">
                 </div>
             </div>
