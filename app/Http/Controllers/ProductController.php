@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductEditRequest;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,10 +11,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-    public function _construct()
-    {
-        $this->middleware('auth')->only(['create', 'store']);
-    }
+
     // public  $products = [
     //     ['id' => 1, 'name' => 'Olio Extravergine di Oliva', 'img' => '/media/mediaolio/olio1.jpg', 'price' => '10€'],
     //     ['id' => 2, 'name' => 'Olio di Semi di Girasole', 'img' => '/media/mediaolio/olio2.jpg', 'price' => '5€'],
@@ -22,9 +20,7 @@ class ProductController extends Controller
     public function products()
     {
         $products = Product::all();
-        return view('prodotti.products', [
-            'products' => $products
-        ]);
+        return view('prodotti.products', compact('products'));
     }
 
     // public function productDetail($id)
@@ -62,6 +58,46 @@ class ProductController extends Controller
         // $product->save();
         // return redirect()->route('products')->with('success', 'Prodotto creato con successo!');
 
+    }
+
+    public function productShow(Product $product)
+    {
+        return view('prodotti.show', compact('product'));
+    }
+
+    public function edit(Product $product)
+    {
+        return view('prodotti.edit', compact('product'));
+    }
+
+    public function update(ProductEditRequest $request, Product $product)
+{
+    $product->update([
+        'name' => $request->name,
+        'description' => $request->description,
+        'price' => $request->price,
+    ]);
+    if ($request->hasFile('img')) {
+        $request->validate([
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'img.image' => 'Il file caricato deve essere un\'immagine.',
+            'img.mimes' => 'L\'immagine deve essere in formato jpeg, png, jpg, gif o svg.',
+            'img.max' => 'L\'immagine non può superare i 2048 KB.',
+        ]);
+        $product->update([
+            'img' => $request->file('img')->store('public/images')
+        ]);
+    }
+
+    return redirect()->route('products.show', $product)
+        ->with('success', 'Prodotto aggiornato!');
+}
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        return redirect()->route('products')->with('success', 'Prodotto eliminato con successo!');
     }
 
 }

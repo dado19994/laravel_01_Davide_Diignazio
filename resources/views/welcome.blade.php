@@ -12,9 +12,9 @@
                     {{ session('emailError') }}
                 </div>
             @endif
-            @if (session()->has('successMassage'))
+            @if (session()->has('success'))
                 <div class="alert alert-success">
-                    {{ session('successMassage') }}
+                    {{ session('success') }}
                 </div>
 
             @endif
@@ -25,4 +25,5 @@
             </div>
         </div>
     </header>
+
 </x-layout>

@@ -7,18 +7,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
 
-route::get('/chi-siamo', [PublicController::class, 'aboutUs'])->name('aboutUs');
+Route::get('/chi-siamo', [PublicController::class, 'aboutUs'])->name('aboutUs');
 
 Route::get('/chi-siamo/detail/{name}', [PublicController::class, 'aboutUsDetail'])->name('aboutUsDetail');
 
-route::get('/contatti', function () {
+Route::get('/contatti', function () {
     return view('contacts');
 })->name('contacts');
 
 
 Route::get('/prodotti', [ProductController::class, 'products'])->name('products');
 
-route::get('/prodotti/detail/{id}', [ProductController::class, 'productDetail'])->name('productDetail');
+// route::get('/prodotti/detail/{id}', [ProductController::class, 'productDetail'])->name('productDetail');
 
 // invio mail
 Route::post('/contact-us', [PublicController::class, 'contactUs'])->name('contactUs');
@@ -26,9 +26,16 @@ Route::post('/contact-us', [PublicController::class, 'contactUs'])->name('contac
 
 // rotta inserimento prodotto
 
-route::get('/prodotti/create', [ProductController::class, 'create'])->name('productCreate')->middleware('auth');
+Route::get('/prodotti/create', [ProductController::class, 'create'])->name('productCreate')->middleware('auth');
 Route::post('/prodotti/store', [ProductController::class, 'store'])->name('products.store')->middleware('auth');
 
+// VIsualizza prodotto
 
+Route::get('/prodotti/show/{product}', [ProductController::class, 'productShow'])->name('products.show');
 
+Route::get('/prodotti/edit/{product}' , [ProductController::class, 'edit'])->name('products.edit')->middleware('auth');
+Route::put('/prodotti/update/{product}', [ProductController::class, 'update'])
+    ->name('products.update')
+    ->middleware('auth');
 
+Route::delete('/prodotti/delete/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('auth');

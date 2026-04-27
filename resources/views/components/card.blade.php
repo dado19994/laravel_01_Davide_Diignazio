@@ -7,6 +7,9 @@
      <div class="card-body d-flex flex-column justify-content-center align-items-center">
          <h5 class="card-title">{{ $product['name'] }}</h5>
          <p class="card-text">{{ $product['price'] }}</p>
-         <a href="#" class="btn btn-primary">Acquista ora</a>
+         <div class="d-flex gap-2 mt-2">
+             <a href="{{ route('products.show', compact('product')) }}" class="btn btn-primary">Acquista ora</a>
+             <a href="{{ route('products.edit', compact('product')) }}" class="btn btn-primary">Modifica</a>
+         </div>
      </div>
  </div>

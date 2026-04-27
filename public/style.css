@@ -51,3 +51,7 @@
     height: 200px;
     object-position: center;
 }
+
+.footer a:hover {
+    color: white !important;
+}
