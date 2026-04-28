@@ -6,34 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductEditRequest;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
-class ProductController extends Controller
+class ProductController extends BaseController
 {
 
+    use AuthorizesRequests, ValidatesRequests;
 
-    // public  $products = [
-    //     ['id' => 1, 'name' => 'Olio Extravergine di Oliva', 'img' => '/media/mediaolio/olio1.jpg', 'price' => '10€'],
-    //     ['id' => 2, 'name' => 'Olio di Semi di Girasole', 'img' => '/media/mediaolio/olio2.jpg', 'price' => '5€'],
-    //     ['id' => 3, 'name' => 'Olio di Cocco', 'img' => '/media/mediaolio/olio3.jpg', 'price' => '8€'],
-    // ];
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['products', 'productShow']);
+    }
+
+
     public function products()
     {
         $products = Product::all();
         return view('prodotti.products', compact('products'));
     }
 
-    // public function productDetail($id)
-    // {
 
-    //     foreach ($this->products as $product) {
-    //         if ($id == $product['id']) {
-    //             return view('prodotti.product-detail', [
-    //                 'product' => $product
-    //             ]);
-    //         }
-    //     }
-    // }
 
     public function create()
     {
@@ -42,22 +37,15 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-            Product::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
-                'img' => $request->file('img')->store('public/images')
-            ]);
+        Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'img' => $request->file('img')->store('images', 'public'),
+            'user_id' => Auth::user()->id,
+        ]);
 
-            return redirect()->route('homepage')->with('success', 'Prodotto creato con successo!');
-
-        // $product = new Product();
-        // $product->name = $request->name;
-        // $product->price = $request->price;
-        // $product->description = $request->description;
-        // $product->save();
-        // return redirect()->route('products')->with('success', 'Prodotto creato con successo!');
-
+        return redirect()->route('homepage')->with('success', 'Prodotto creato con successo!');
     }
 
     public function productShow(Product $product)
@@ -67,37 +55,51 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        if (Auth::check() && Auth::user()->id !== $product->user_id) {
+            abort(403, 'Non sei autorizzato a modificare questo prodotto.');
+        }
         return view('prodotti.edit', compact('product'));
     }
 
     public function update(ProductEditRequest $request, Product $product)
-{
-    $product->update([
-        'name' => $request->name,
-        'description' => $request->description,
-        'price' => $request->price,
-    ]);
-    if ($request->hasFile('img')) {
-        $request->validate([
-            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ], [
-            'img.image' => 'Il file caricato deve essere un\'immagine.',
-            'img.mimes' => 'L\'immagine deve essere in formato jpeg, png, jpg, gif o svg.',
-            'img.max' => 'L\'immagine non può superare i 2048 KB.',
-        ]);
-        $product->update([
-            'img' => $request->file('img')->store('public/images')
-        ]);
-    }
-
-    return redirect()->route('products.show', $product)
-        ->with('success', 'Prodotto aggiornato!');
-}
-
-    public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('products')->with('success', 'Prodotto eliminato con successo!');
+        if (Auth::check() && Auth::user()->id !== $product->user_id) {
+            abort(403, 'Non sei autorizzato a modificare questo prodotto.');
+        }
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+        ]);
+        if ($request->hasFile('img')) {
+            $request->validate([
+                'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ], [
+                'img.image' => 'Il file caricato deve essere un\'immagine.',
+                'img.mimes' => 'L\'immagine deve essere in formato jpeg, png, jpg, gif o svg.',
+                'img.max' => 'L\'immagine non può superare i 2048 KB.',
+            ]);
+            $product->update([
+                'img' => $request->file('img')->store('/public/images')
+            ]);
+        }
+
+        return redirect()->route('products.show', $product)
+            ->with('success', 'Prodotto aggiornato!');
     }
 
+    public function destroy(int $id)
+    {
+        $product = Product::find($id, ['*']);
+        if (!$product) {
+            return redirect()->route('products')->with('errorMessage', 'Prodotto non trovato.');
+        }
+
+        if ($product->user_id == Auth::user()->id) {
+            Product::destroy($id);
+            return redirect()->route('products')->with('success', 'Prodotto eliminato con successo!');
+        } else {
+            return redirect()->route('products')->with('errorMessage', 'Non sei autorizzato a eliminare questo prodotto.');
+        }
+    }
 }

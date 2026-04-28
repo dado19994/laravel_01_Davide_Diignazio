@@ -39,3 +39,6 @@ Route::put('/prodotti/update/{product}', [ProductController::class, 'update'])
     ->middleware('auth');
 
 Route::delete('/prodotti/delete/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('auth');
+
+// tutti i film per singolo utente
+Route::get('/user/profile' , [PublicController::class, 'profile'])->name('user.profile')->middleware('auth');

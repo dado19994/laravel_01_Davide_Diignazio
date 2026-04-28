@@ -14,7 +14,8 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('products.update', compact('product')) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('products.update', compact('product')) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -28,14 +29,20 @@
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Prezzo</label>
-                        <input type="text" name="price" class="form-control" id="price" value="{{ old('price', $product->price) }}">
+                        <input type="text" name="price" class="form-control" id="price"
+                            value="{{ old('price', $product->price) }}">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Descrivi il prodotto</label>
                         <textarea name="description" id="description" cols="30" rows="10" class="form-control"
                             aria-describedby="descriptionHelp">{{ old('description', $product->description) }}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Pubblica</button>
+                    <div class="d-flex justify-content-between">
+                    <a href="{{ route('products') }}" class="btn btn-primary">
+                        ← Indietro
+                    </a>
+                    <button type="submit" class="btn btn-success">Pubblica</button>
+                    </div>
                 </form>
             </div>
         </div>

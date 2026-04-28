@@ -49,4 +49,9 @@ public function contactUs(Request $request) {
 
     return redirect(route('homepage'))->with('emailSent', 'Messaggio inviato con successo!');
 }
+public function profile() {
+
+    return view('prodotti.profile');
+}
+
 }

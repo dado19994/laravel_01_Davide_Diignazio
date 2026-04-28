@@ -29,6 +29,7 @@
                             </a>
 
                             <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('user.profile') }}">Il mio profilo</a></li>
                                 <li>
                                     <a class="dropdown-item"
                                         onclick="event.preventDefault(); document.getElementById('form-logout').submit();"
