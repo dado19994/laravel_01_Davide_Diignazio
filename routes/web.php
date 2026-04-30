@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -42,3 +43,9 @@ Route::delete('/prodotti/delete/{product}', [ProductController::class, 'destroy'
 
 // tutti i film per singolo utente
 Route::get('/user/profile' , [PublicController::class, 'profile'])->name('user.profile')->middleware('auth');
+
+// rotta per visualizzare l'olio per genere
+Route::get('/genre/create', [GenreController::class, 'create'])->name('genre.create');
+Route::post('/genre/create/submit', [GenreController::class, 'store'])->name('genre.submit');
+Route::get('/genre/index', [GenreController::class, 'index'])->name('genre.index');
+Route::get('/genre/show/{genre}', [GenreController::class, 'show'])->name('genre.show');

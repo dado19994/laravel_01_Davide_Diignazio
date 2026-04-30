@@ -11,8 +11,19 @@
                     <a class="nav-link" href="{{ route('aboutUs') }}">Chi siamo</a>
                     <a class="nav-link" href="{{ route('contacts') }}">Contatti</a>
                     <a class="nav-link" href="{{ route('products') }}">Prodotti</a>
+                    <a class="nav-link" href="{{ route('genre.index') }}">Categorie</a>
                     @auth
-                        <a class="nav-link" href="{{ route('productCreate') }}">Inserisci Prodotto</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Inserisci
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="{{ route('productCreate') }}">Inserisci Prodotto</a></li>
+                                <li><a class="nav-link" href="{{ route('genre.create') }}">Inserisci Categoria</a></li>
+                            </ul>
+                        </li>
+
                     @endauth
 
                     @guest
@@ -20,7 +31,8 @@
                             onclick="alert('Devi effettuare login o registrarti per inserire un prodotto')">
                             Inserisci Prodotto
                         </a>
-                    @endguest <li class="nav-item dropdown">
+                    @endguest
+                    <li class="nav-item dropdown">
 
                         @auth
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

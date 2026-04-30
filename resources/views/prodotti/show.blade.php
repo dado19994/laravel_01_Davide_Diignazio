@@ -5,6 +5,13 @@
                 <h2>{{ $product->name }}</h2>
                 <p>{{ $product->description }}</p>
                 <p>Prezzo: €{{ $product->price }}</p>
+                <ul>
+                    @forelse ($product->genres as $genre)
+                        <li class="small">{{ $genre->name }}</li>
+                    @empty
+                        <p class="text-muted small">Nessuna categoria associata.</p>
+                    @endforelse
+                </ul>
             </div>
             <div class="col-12 col-md-6">
                 <img src="{{ Storage::url($product->img) }}" alt="{{ $product->name }}"

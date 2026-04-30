@@ -36,11 +36,35 @@
                         <textarea name="description" id="description" cols="30" rows="10" class="form-control"
                             aria-describedby="descriptionHelp">{{ old('description') }}</textarea>
                     </div>
+                    <div class="mb-3">
+
+                        <!-- CHECKBOX -->
+                        <div class="d-flex flex-wrap gap-3">
+                            @foreach ($genres as $genre)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="genres[]"
+                                        id="genre{{'genreCheck', $genre->id }}" value="{{ $genre->id }}">
+                                    <label class="form-check-label" for="genre{{ 'genreCheck', $genre->id}}">
+                                        {{ $genre->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- TESTO SOTTO -->
+                        <p class="mt-3">
+                            Non vedi la categoria che stai cercando?
+                            <a href="{{ route('genre.create') }}" class="text-white fst-italic">
+                                Crea una nuova categoria
+                            </a>
+                        </p>
+
+                    </div>
                     <div class="d-flex justify-content-between">
-                    <a href="{{ route('products') }}" class="btn btn-primary">
-                        ← Indietro
-                    </a>
-                    <button type="submit" class="btn btn-success">Pubblica</button>
+                        <a href="{{ route('products') }}" class="btn btn-primary">
+                            ← Indietro
+                        </a>
+                        <button type="submit" class="btn btn-success">Pubblica</button>
                     </div>
                 </form>
             </div>

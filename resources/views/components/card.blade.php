@@ -13,6 +13,16 @@
                 {{ $product->user?->name ?? 'Utente sconosciuto' }}
             </span>
         </p>
+        <div class="d-flex">
+            @forelse($product->genres as $genre)
+            @if(!$loop->last)
+                <a href="{{ route('genre.show', compact('genre')) }}" class="badge bg-secondary me-1">{{ $genre->name }},</a>
+            @else
+                <a href="{{ route('genre.show', compact('genre')) }}" class="badge bg-secondary me-1">{{ $genre->name }}</a>
+            @endif
+             @empty
+            @endforelse
+        </div>
         <div class="d-flex gap-2 mt-2">
             <a href="{{ route('products.show', compact('product')) }}" class="btn btn-primary">Visualizza</a>
             @auth

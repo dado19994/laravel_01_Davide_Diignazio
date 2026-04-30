@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductEditRequest;
 use App\Http\Requests\ProductRequest;
+use App\Models\Genre;
 use App\Models\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -32,18 +33,24 @@ class ProductController extends BaseController
 
     public function create()
     {
-        return view('prodotti.create');
+        $genres = Genre::all();
+        return view('prodotti.create', compact('genres'));
     }
 
     public function store(ProductRequest $request)
     {
-        Product::create([
+        $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'img' => $request->file('img')->store('images', 'public'),
             'user_id' => Auth::user()->id,
         ]);
+
+        $product->genres()->attach($request->genres);
+
+
+
 
         return redirect()->route('homepage')->with('success', 'Prodotto creato con successo!');
     }
